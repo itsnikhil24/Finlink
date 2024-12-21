@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinLink Profile Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background -->
+    <div class="background"></div>
+
+    <!-- Header Section -->
+    <header class="main-header">
+        <h1>FinLink</h1>
+        <p>Link & Get progress in your financial journey with us!</p>
+    </header>
+
+    <!-- Form Section -->
+    <div class="form-card">
+        <h2>Complete Your Profile</h2>
+        <form action="/createrequest" method="POST" enctype="multipart/form-data">
+            <!-- User ID (Hidden Field) -->
+            <input type="hidden" name="userId" value="<%= userId %>">
+
+
+            <!-- Profile Picture -->
+            <div class="input-group">
+                <label for="profile-pic">
+                    <i class="icon">📸</i> Profile Picture
+                </label>
+                <input type="file" id="profile-pic" name="profile_pic" accept="image/*">
+            </div>
+
+            <!-- Occupation -->
+            <div class="input-group">
+                <label for="occupation">
+                    <i class="icon">💼</i> Occupation
+                </label>
+                <input type="text" id="occupation" name="occupation" placeholder="Enter your occupation" required>
+            </div>
+
+            <!-- Current Status -->
+            <div class="input-group">
+                <label for="status">
+                    <i class="icon">📊</i> Current Status
+                </label>
+                <textarea id="status" name="current_status" placeholder="Describe your current financial status"></textarea>
+            </div>
+
+            <!-- Financial Goals -->
+            <div class="input-group">
+                <label for="goals">
+                    <i class="icon">🎯</i> Financial Goals
+                </label>
+                <textarea id="goals" name="financial_goal" placeholder="Enter your financial goals"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

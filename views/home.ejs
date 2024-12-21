@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Navbar Example</title>
+    <title>Finlink</title>
     <link rel="stylesheet" href="stylesheets/home.css" />
   </head>
   <body>
@@ -23,7 +23,7 @@
 
         <!-- Right Side: Get Started Button -->
         <div class="get-started">
-          <button>Get Started</button>
+          <a href="/form"><button>Get Started</button></a>
         </div>
 
         <!-- Hamburger Menu for Mobile -->
@@ -124,9 +124,21 @@
       </div>
     </footer>
   </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"
+    integrity="sha512-VJ6+sp2E5rFQk05caiXXzQd1wBABpjEj1r5kMiLmGAAgwPItw1YpqsCCBtq8Yr1x6C49/mTpRdXtq8O2RcZhlQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
   <script>
     const hamburgerMenu = document.getElementById("hamburger-menu");
     const navLinks = document.querySelector(".nav-links");
+    var sender_id = '<%= userId %>'; // Ensure userId is correctly passed from the server-rendered view
+var socket = io("/user-namespace", {
+  auth: {
+    token: sender_id, // Pass the correct userId
+  },
+});
 
     hamburgerMenu.addEventListener("click", () => {
       navLinks.classList.toggle("active");

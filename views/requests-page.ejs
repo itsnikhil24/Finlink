@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Requests</title>
+</head>
+<body>
+  <h1>All Requests</h1>
+  <ul>
+    <% requests.forEach((request) => { %>
+      <li>
+        <h2>Request by: <%= request.request_user.name %></h2>
+        <p>Occupation: <%= request.occupation %></p>
+        <p>Current Status: <%= request.current_status %></p>
+        <p>Financial Goal: <%= request.financial_goal %></p>
+        <% if (request.Image) { %>
+          <img src="<%= request.Image %>" alt="Request Image" width="200" />
+        <% } %>
+      </li>
+    <% }); %>
+    
+  </ul>
+</body>
+</html>

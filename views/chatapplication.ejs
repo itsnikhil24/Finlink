@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat with Expert</title>
+    <link rel="stylesheet" href="../stylesheets/chat.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="navbar">
+            <nav>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/interaction">Finance Assistance</a></li>
+                    <li><a href="/items">Barter System</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="chat-ui">
+            <!-- User Image and Name Section -->
+            <h1 class="title">
+                <div class="user-header">
+                    <img class="user-image" src="<%= targetUserImage %>" alt="User Image" />
+                    <p class="user-name"><%= targetUserName %></p>
+                </div>
+            </h1>
+            
+            <div id="chat-container" class="chat-container">
+                <!-- Messages will be dynamically added here -->
+            </div>
+            <div class="input-bar">
+                <form id="myForm" onsubmit="sendMessage(event)">
+                    <input id="query" type="text" name="query" placeholder="Type your message..." required />
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Establish Socket.IO connection with token
+        var socket = io({
+            auth: {
+                token: "<%= currentUserId %>" // Add token from the backend for user identification
+            }
+        });
+
+        var expertId = "<%= targetUserId %>"; // Expert ID passed from the backend
+
+        // Send message when form is submitted
+        function sendMessage(event) {
+            event.preventDefault(); // Prevent form submission
+            var query = document.getElementById('query').value;
+
+            if (query.trim() !== "") {
+                // Emit the message event to the server
+                socket.emit('send-message', { senderId: "<%= currentUserId %>", receiverId: expertId, message: query });
+
+                // Append the user's message to the chat container
+                appendMessage(query, 'user');
+
+                // Clear the input field
+                document.getElementById('query').value = '';
+            }
+        }
+
+        // Append messages to the chat container
+        function appendMessage(message, sender) {
+            var chatContainer = document.getElementById('chat-container');
+            var messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-bubble', sender); // Add 'chat-bubble' and sender class
+            messageDiv.textContent = message;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+        }
+
+        // Listen for incoming messages from the server (e.g., bot's response or expert's reply)
+        socket.on('receive-message', function(data) {
+            appendMessage(data.message, 'bot');
+        });
+    </script>
+</body>
+</html>

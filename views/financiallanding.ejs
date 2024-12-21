@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Assistance Portal</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+
+      /* Header Section */
+      .header {
+        background: url("https://via.placeholder.com/1200x500") center/cover
+          no-repeat;
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+
+      .header .button {
+        background-color: #4caf50;
+        padding: 14px 30px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .header .button:hover {
+        background-color: #45a049;
+      }
+
+      /* Sidebar Section */
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: #2c3e50;
+        padding: 20px;
+        transition: 0.3s;
+        box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      #sidebar.open {
+        left: 0;
+      }
+
+      #sidebar .close-btn {
+        font-size: 30px;
+        color: white;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+      }
+
+      #sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 60px;
+      }
+
+      #sidebar ul li {
+        padding: 15px;
+        font-size: 1.2rem;
+        color: white;
+        cursor: pointer;
+        border-bottom: 1px solid #34495e;
+        transition: background-color 0.3s ease;
+      }
+
+      #sidebar ul li:hover {
+        background-color: #34495e;
+      }
+
+      /* Main Content Sections */
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        transition: margin-left 0.3s;
+      }
+
+      .consultation-process,
+      .plans,
+      .profiles {
+        padding: 60px 20px;
+        margin-bottom: 40px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Consultation Process Section */
+      .consultation-process h2,
+      .plans h2,
+      .profiles h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .consultation-process ul,
+      .plans ul,
+      .profiles ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .consultation-process li,
+      .plans li,
+      .profiles li {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+      }
+
+      .consultation-process li i,
+      .plans li i,
+      .profiles li i {
+        margin-right: 10px;
+      }
+
+      /* Plan Cards */
+      .plan-cards {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .plan-card {
+        background: #fff;
+        padding: 20px;
+        width: 48%;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .plan-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .plan-card h4 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .plan-card .price {
+        font-size: 1.2rem;
+        color: #4caf50;
+        font-weight: bold;
+      }
+
+      /* Profile Cards Section */
+      .profile-cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .profile-card {
+        background: #fff;
+        padding: 20px;
+        width: 30%;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .profile-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .profile-card img {
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+      }
+
+      .profile-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+      }
+
+      .profile-card .rating {
+        color: #f39c12;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      /* Footer */
+      .footer {
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .footer a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      .footer a:hover {
+        color: #4caf50;
+      }
+
+      .button {
+        background-color: #4caf50;
+        padding: 14px 30px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .button:hover {
+        background-color: #45a049;
+      }
+
+      #add-request-btn {
+        background-color: #4caf50; /* Green background */
+        color: white; /* White text */
+        border: none; /* Remove default border */
+        padding: 12px 20px; /* Add some padding */
+        font-size: 1rem; /* Set font size */
+        font-weight: 500; /* Slightly bold text */
+        border-radius: 25px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: all 0.3s ease; /* Smooth transitions */
+        text-decoration: none; /* Remove underline from button inside <a> */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar Button -->
+    <button onclick="toggleSidebar()" class="button">☰</button>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+      <ul>
+        <li onclick="showSection('consultation-process')">
+          Consultation Process
+        </li>
+        <li onclick="showSection('plans')">Plans</li>
+        <li onclick="showSection('profiles')">View Profiles</li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div id="consultation-process" class="consultation-process">
+        <h2>Consultation Process</h2>
+        <ul>
+          <li><i class="fa fa-sign-in-alt"></i> Sign Up for Free</li>
+          <li><i class="fa fa-id-badge"></i> Complete Your Profile</li>
+          <li><i class="fa fa-comments"></i> Start Chatting with Experts</li>
+        </ul>
+      </div>
+
+      <div id="plans" class="plans" style="display: none">
+        <h2>Choose Your Plan</h2>
+        <div class="plan-cards">
+          <div class="plan-card">
+            <h4>Free Plan</h4>
+            <p>Access chat-based assistance for general inquiries.</p>
+            <div class="price">Free</div>
+            <a href="/form">
+              <button id="add-request-btn">Add your request</button>
+            </a>
+          </div>
+          <div class="plan-card">
+            <h4>Paid Plan</h4>
+            <p>Get detailed one-on-one advice from experts.</p>
+            <div class="price">$99</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="profiles" class="profiles" style="display: none">
+        <h2>Expert Profiles</h2>
+
+        <div class="profile-cards">
+          <% requests.forEach((request) => { %>
+
+            <div class="profile-card" data-id="<%= request['request_user']._id %>">
+                <% if (request.Image) { %>
+                <img src="/<%= request.Image %>" alt="Profile Picture" style="width: 100px; height: 100px"/>
+                <% } %>
+                <h3><%= request.name %></h3>
+                <h4><strong>Occupation:</strong> <%= request.occupation %></h4>
+                <p><%= request.occupation %> | 10+ Years of Experience</p>
+                <div class="rating">⭐⭐⭐⭐</div>
+                <!-- Updated Contact Now button that links to the chat page -->
+                <a href="/chat/<%= request['request_user']._id %>">
+                    <button class="button">Contact Now</button>
+                </a>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <p>&copy; 2024 Financial Assistance. All rights reserved.</p>
+      <p><a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a></p>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"
+      integrity="sha512-VJ6+sp2E5rFQk05caiXXzQd1wBABpjEj1r5kMiLmGAAgwPItw1YpqsCCBtq8Yr1x6C49/mTpRdXtq8O2RcZhlQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+        var sender_id='<%= userid._id %>';
+      var socket = io("/user-namespace",{
+        auth:{
+            token:sender_id
+        }
+      });
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+      }
+      console.log(sender_id);
+
+      function showSection(sectionId) {
+        // Hide all sections
+        document
+          .querySelectorAll(".main-content > div")
+          .forEach(function (section) {
+            section.style.display = "none";
+          });
+
+        // Show the selected section
+        document.getElementById(sectionId).style.display = "block";
+      }
+    </script>
+  </body>
+</html>
