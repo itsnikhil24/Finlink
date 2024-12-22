@@ -483,6 +483,19 @@
         .footer a:hover {
             color: #4CAF50;
         }
+        #add-request-btn {
+        background-color: rgba(38, 38, 170, 0.616); /* Green background */
+        color: white; /* White text */
+        border: none; /* Remove default border */
+        padding: 12px 20px; /* Add some padding */
+        font-size: 1rem; /* Set font size */
+        font-weight: 500; /* Slightly bold text */
+        border-radius: 25px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: all 0.3s ease; /* Smooth transitions */
+        text-decoration: none; /* Remove underline from button inside <a> */
+      }
 
     </style>
 </head>
@@ -544,6 +557,9 @@
                     <i class="fas fa-comment-alt"></i>
                     <h3>Free Plan</h3>
                     <p>Chat with an expert for free. Get your questions answered without any cost.</p>
+                    <a href="/form">
+                        <button id="add-request-btn">Add your request</button>
+                      </a>
                 </div>
                 
                 <!-- Advanced Plan Card -->
