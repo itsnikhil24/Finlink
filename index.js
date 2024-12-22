@@ -71,6 +71,14 @@ app.get("/home", authenticateToken, (req, res) => {
   res.render("home", { userId: req.userId });
 });
 
+app.get("/profile",(req,res)=>{
+  res.render("personal-dashboard.ejs")
+})
+
+app.get("/barter",(req,res)=>{
+  res.render("barter.ejs");
+})
+
 // Chat Page Route
 app.get('/chat/:userId', authenticateToken, async (req, res) => {
   const targetUserId = req.params.userId;
@@ -82,13 +90,15 @@ app.get('/chat/:userId', authenticateToken, async (req, res) => {
 
   try {
       const targetUser = await User.findById(targetUserId); // or Request if needed
-
+      // const name =await Request.findById(targetUserId);
+      const user = await Request.findOne({ request_user: targetUser });
+      console.log(user);
       if (!targetUser) {
           return res.status(404).send('User not found');
       }
 
       // Assuming the image is stored in the 'uploads' directory inside 'public'
-      const targetUserImage = `/${targetUser.Image}`;
+      const targetUserImage = `/${user.Image}`;
 
       res.render('chatapplication.ejs', {
           currentUserId,
@@ -110,9 +120,10 @@ app.get("/financialland", authenticateToken, async (req, res) => {
     // Fetch all requests and exclude the logged-in user's requests
     const userid = await User.findById(req.userId);
     const requests = await Request.find({ request_user: { $ne: req.userId } }) // Excludes the current user's requests
+
       .populate("request_user"); // Fetch requests with user details
 
-    res.render("financiallanding", { requests ,userid});
+    res.render("financialass.ejs", { requests ,userid});
   } catch (error) {
     console.error("Error fetching requests:", error);
     res.status(500).send("Internal Server Error");
@@ -251,6 +262,10 @@ io.on('connection', (socket) => {
 
 });
 
+app.get("/logout", (req, res) => {
+  res.clearCookie("token"); // Clear the authentication token
+  res.redirect("/"); // Redirect to login page
+});
 
 
 // Start the Server

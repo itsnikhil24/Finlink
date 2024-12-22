@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finlink Barter System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Layout */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b7bdf7;
+        }
+
+        h1, h2, p {
+            color: #0f0f0f;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #222;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px;
+            background-color: #f5f4f7;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-left {
+            max-width: 60%;
+        }
+
+        .header-right .icon-3d img {
+            width: 120px;
+            height: 120px;
+        }
+
+        /* Process Section */
+        .process {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .process .whats-next {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background-color: #fcfafe;
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card img {
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+        }
+
+        /* Barter Meter */
+        .barter-meter {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        #help-type {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .user-cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* User Cards */
+        .active-user-cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card-user {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card-user:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-user img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 450px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .dashboard-card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            width: 350px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            font-size: 50px;
+            color: #4CAF50;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="navbar">
+            <div class="logo">FinLink</div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-left">
+            <h1>Welcome to the Barter System</h1>
+            <p>Exchange services like financial help and web development with others.</p>
+        </div>
+        <div class="header-right">
+            <div class="icon-3d">
+                <img src="../images/icon.png" alt="3D Icon" />
+            </div>
+        </div>
+    </header>
+
+    <!-- Process Section -->
+    <section class="process">
+        <button class="whats-next" onclick="scrollToCards()">What's Next?</button>
+        <div class="cards" id="process-cards">
+            <div class="card">
+                <i class="icon fas fa-user-plus"></i>
+                <h2>Step 1</h2>
+                <p>Create Profile</p>
+                <img src="../images/card1.png" alt="Create Profile">
+            </div>
+            <div class="card">
+                <i class="icon fas fa-user-check"></i>
+                <h2>Step 2</h2>
+                <p>Be an Active User</p>
+                <img src="../images/card2.png" alt="Active User">
+            </div>
+            <div class="card">
+                <i class="icon fas fa-exchange-alt"></i>
+                <h2>Step 3</h2>
+                <p>Pair and Connect</p>
+                <img src="../images/card3.png" alt="Pair and Connect">
+            </div>
+        </div>
+    </section>
+
+    <!-- Barter Meter Section -->
+    <section class="barter-meter">
+        <label for="help-type">Choose Help Type:</label>
+        <select id="help-type" onchange="displayActiveUsers()">
+            <option value="">Select Help Type</option>
+            <option value="financial">Financial Help</option>
+            <option value="web">Web Help</option>
+        </select>
+        <div id="user-cards" class="user-cards"></div>
+    </section>
+
+    <!-- Terms and Conditions Modal -->
+    <div id="pair-modal" class="modal">
+        <div class="modal-content">
+            <h2>Terms and Conditions</h2>
+            <p>You can only pair with one user at a time. If the work is not completed, your profile will be removed.</p>
+            <label>
+                <input type="checkbox" id="agree">
+                I agree to the terms and conditions.
+            </label>
+            <button id="pair-now" onclick="pairNow()" disabled>Pair Now</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+        <h2>Your Current Pairing</h2>
+        <div id="dashboard-card" class="dashboard-card">
+            <!-- Paired user details will appear here -->
+        </div>
+    </section>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        // Scroll to Process Cards Section
+        function scrollToCards() {
+            document.getElementById('process-cards').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Display Active Users based on Dropdown Selection
+        function displayActiveUsers() {
+            const helpType = document.getElementById('help-type').value;
+            const userCards = document.getElementById('user-cards');
+
+            // Clear previous user cards
+            userCards.innerHTML = '';
+
+            if (helpType === 'financial') {
+                // Add Financial Help User Cards
+                userCards.innerHTML = `
+                    <div class="card-user">
+                        <img src="../images/profile1.png" alt="User 1">
+                        <h3>Jane Smith</h3>
+                        <p>Needs: Financial Assistance</p>
+                        <p>Offering: Web Development</p>
+                        <button onclick="showPairModal()">Pair Now</button>
+                    </div>
+                    <div class="card-user">
+                        <img src="../images/profile2.png" alt="User 2">
+                        <h3>John Doe</h3>
+                        <p>Needs: Financial Assistance</p>
+                        <p>Offering: Graphic Design</p>
+                        <button onclick="showPairModal()">Pair Now</button>
+                    </div>
+                `;
+            } else if (helpType === 'web') {
+                // Add Web Help User Cards
+                userCards.innerHTML = `
+                    <div class="card-user">
+                        <img src="user3.jpg" alt="User 3">
+                        <h3>User 3</h3>
+                        <p>Needs: Web Development</p>
+                        <p>Offering: Financial Assistance</p>
+                        <button onclick="showPairModal()">Pair Now</button>
+                    </div>
+                    <div class="card-user">
+                        <img src="user4.jpg" alt="User 4">
+                        <h3>User 4</h3>
+                        <p>Needs: Web Development</p>
+                        <p>Offering: Financial Assistance</p>
+                        <button onclick="showPairModal()">Pair Now</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Show Terms and Conditions Modal
+        function showPairModal() {
+            const modal = document.getElementById('pair-modal');
+            modal.style.display = 'flex';
+        }
+
+        // Enable Pair Button when Terms and Conditions are Checked
+        document.getElementById('agree').addEventListener('change', function () {
+            document.getElementById('pair-now').disabled = !this.checked;
+        });
+
+        // Pair Users and Display Dashboard
+        function pairNow() {
+            const dashboard = document.getElementById('dashboard-card');
+            dashboard.innerHTML = `
+                <p>You have successfully paired with User 1</p>
+                <p>Start your collaboration!</p>
+            `;
+            document.getElementById('pair-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

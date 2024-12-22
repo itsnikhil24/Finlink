@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Assistance Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #f6f6f7, #eceaf4); /* Gradient Background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+        }
+
+        /* Header Section */
+        .header {
+            position: relative;
+    top: 50px;  /* This will move the section 50px down */
+    width: 100%;
+    height: 65vh;
+    background: url('https://multimedia-nivelics-dev.s3.amazonaws.com/multimediaStrapi/medium_man_suit_is_placing_coins_table_902846_6329_f25a594bcc.jpg') center/cover no-repeat;
+    background-size: cover;
+    color: white;
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(26, 1, 149, 0.7);
+        }
+
+        .header p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header .button {
+            background-color: #4CAF50;
+            padding: 14px 30px;
+            font-size: 1.2rem;
+            border-radius: 90px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .button:hover {
+            background-color: #45a049;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Sidebar and Header Button Container */
+        .sidebar-header-container {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+        }
+
+        /* Sidebar Button */
+        .sidebar-btn {
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Thin Header */
+        .header-name {
+            margin-left: 10px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2C3E50;
+            border-left: 2px solid #4CAF50;
+            padding-left: 10px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Sidebar Section */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #2C3E50;
+            padding: 20px;
+            transition: 0.3s;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px 0 0 10px;
+            z-index: 100;
+        }
+
+        #sidebar.open {
+            left: 0;
+        }
+
+        #sidebar .close-btn {
+            font-size: 30px;
+            color: white;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 60px;
+        }
+
+        #sidebar ul li {
+            padding: 15px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #34495e;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+        }
+
+        #sidebar ul li:hover {
+            background-color: #34495e;
+        }
+
+        #sidebar ul li i {
+            font-size: 20px;
+        }
+
+        /* Main Content Sections */
+        .main-content {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+/* Consultation Section with Background */
+.consultation-process {
+    background: #f7f7f7;  /* Soft background color */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);  /* Adding shadow for a framed effect */
+    margin-top: 50px;
+    text-align: center;  /* Center the content in the section */
+}
+
+/* Heading Style for Consultation Process */
+.consultation-process h2 {
+    font-size: 2rem;  /* Larger heading */
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 30px;  /* Space between heading and cards */
+}
+
+/* Container for Cards in a Row */
+.consultation-process .card-container {
+    display: flex;
+    justify-content: space-between;  /* Space out the cards evenly */
+    gap: 30px;  /* Adds space between cards */
+    flex-wrap: wrap;  /* Allows wrapping on smaller screens */
+}
+
+/* Individual Cards */
+.consultation-process .card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);  /* Improved shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    width: 30%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;  /* Adds space between the cards */
+}
+
+/* Hover Effect for Cards */
+.consultation-process .card:hover {
+    transform: translateY(-10px);  /* Slight lift effect */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);  /* Stronger shadow */
+    background-color: #f1f1f1;  /* Soft background change */
+}
+
+/* Icon Style */
+.consultation-process .card i {
+    font-size: 50px;  /* Larger icon */
+    color: #4CAF50;  /* Green color for better contrast */
+    margin-bottom: 20px;
+}
+
+/* Heading Style */
+.consultation-process .card h3 {
+    font-size: 1.5rem;  /* Slightly larger font size */
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Paragraph Style */
+.consultation-process .card p {
+    font-size: 1rem;  /* Better readability */
+    color: #555;
+    line-height: 1.5;
+}
+/* Style for Plan section */
+#choose-plan {
+    padding: 40px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+    display: none;  /* Initially hidden */
+    border-radius: 15px;  /* Adding a border radius for a rounded frame */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Adding a subtle shadow */
+    width: 80%;  /* Center aligned with some margin */
+    margin: 20px auto;  /* Center it horizontally */
+    text-align: center;  /* Align the text in the center */
+}
+
+/* Heading Style */
+#choose-plan h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Plan Section Styling */
+#plans {
+    padding: 40px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+    border-radius: 15px;  /* Rounded corners for the plan section */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Soft shadow */
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;  /* Center text */
+}
+
+/* Heading Style for Choose Your Plan */
+#plans h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Container for the cards */
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;  /* Allow cards to wrap on smaller screens */
+}
+
+/* Individual card style */
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 30px;
+    width: 48%;  /* Each card takes up 48% of the width */
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Soft shadow */
+    transition: transform 0.3s ease-in-out;  /* Smooth hover effect */
+}
+
+/* Hover effect for cards */
+.card:hover {
+    transform: translateY(-10px);  /* Lift the card on hover */
+}
+
+/* Icon style inside cards */
+.card i {
+    font-size: 50px;
+    color: #007BFF;
+    margin-bottom: 20px;
+}
+
+/* Card title style */
+.card h3 {
+    font-size: 22px;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Card paragraph style */
+.card p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .card {
+        width: 100%;  /* Cards take up full width on smaller screens */
+    }
+}
+/* Profile Section */
+#profiles {
+    width: 100%;
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #1e0135;
+    margin-top: 40px; /* Adjust space between sections */
+    box-sizing: border-box;
+}
+
+#profiles h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-family: 'Arial', sans-serif;
+    color: #faf7f7;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Profile Card */
+.profiles-card {
+    display: flex;
+    flex-direction: column; /* Arrange elements vertically */
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjust the width to match container's space */
+    max-width: 300px; /* Adjust max width for compact card */
+    padding: 20px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Hover effect for profile card */
+.profiles-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Profile Image Container */
+.profiles-img-container {
+    width: 70px; /* Slightly bigger profile image */
+    height: 70px;
+    border-radius: 50%; /* Circular shape */
+    overflow: hidden;
+    margin-bottom: 15px; /* Space between image and description */
+}
+
+/* Profile Image */
+.profiles-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fits within the circle */
+}
+
+/* Profile Details */
+.profile-details {
+    text-align: center;
+}
+
+/* Profile Name */
+.profile-details h3 {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Profile Experience */
+.profiles-details .experience {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+    padding: 5px 0;
+    font-style: italic;
+}
+
+/* Star Rating */
+.star-rating i {
+    color: #ffb400;
+    margin: 0 2px;
+}
+
+/* Chat Now Button */
+.chat-now-btn {
+    padding: 8px 15px;
+    background-color: #ff5722;
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the button */
+.chat-now-btn:hover {
+    background-color: #e64a19;
+}
+
+
+        .button {
+            background-color: #4CAF50;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1rem;
+        }
+
+        .footer a:hover {
+            color: #4CAF50;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar and Header Button -->
+    <div class="sidebar-header-container">
+        <button onclick="toggleSidebar()" class="sidebar-btn">☰</button>
+        <div class="header-name">FinLink</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        <ul>
+            <a href="/home" style="text-decoration: none;"><li ><i class="fa fa-home"></i>Home</li></a>
+            <li onclick="showSection('consultation-process')"><i class="fa fa-users"></i>Consultation Process</li>
+            <li onclick="showSection('plans')"><i class="fa fa-tags"></i>Plans</li>
+            <li onclick="showSection('profiles')"><i class="fa fa-user"></i>Profiles</li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <section id="home" class="home">
+            <div class="header">
+                <h1>Welcome to Financial Assistance</h1>
+                <p>Your personalized financial solutions start here.</p>
+                <button class="button">Get Started</button>
+            </div>
+        </section>
+
+        <section id="consultation-process" class="consultation-process">
+            <h2>Consultation Process</h2>
+            <div class="card-container">
+                <div class="card">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <h3>Step 1</h3>
+                    <p>Sign In</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>Step 2</h3>
+                    <p>Register Profile</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>Step 3</h3>
+                    <p>Connect with Expert</p>
+                </div>
+            </div>
+        </section>
+       
+        <section id="plans" class="plans">
+            <h2>View Plans</h2>
+            <div class="card-container">
+                <!-- Free Plan Card -->
+                <div class="card">
+                    <i class="fas fa-comment-alt"></i>
+                    <h3>Free Plan</h3>
+                    <p>Chat with an expert for free. Get your questions answered without any cost.</p>
+                </div>
+                
+                <!-- Advanced Plan Card -->
+                <div class="card">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Advanced Plan</h3>
+                    <p>Pay $20 and get access to the expert's contact details for further consultation.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="profiles" class="plans">
+            <h2>Meet Our Experts</h2>
+            <div class="card-container">
+                <% requests.forEach((request) => { %>
+                    <div class="profiles-card" data-id="<%= request['request_user']._id %>">
+                        <div class="profiles-img-container">
+                            <% if (request.Image) { %>
+                                <img src="/<%= request.Image %>" alt="<%= request.request_user.name %>" class="profiles-img">
+                            <% } else { %>
+                                <img src="default-profile.png" alt="Default Profile Picture" class="profiles-img">
+                            <% } %>
+                        </div>
+                        <div class="profile-details">
+                            <h3><%= request.request_user.name %></h3>
+                            <p class="experience"><%= request.occupation %> | <%= request.experience %> Years of Experience</p>
+                            <div class="star-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <a href="/chat/<%= request['request_user']._id %>">
+                                <button class="chat-now-btn">Chat Now</button>
+                            </a>
+                        </div>
+                    </div>
+                    <% }); %>
+                    
+        
+                <!-- Another profile card -->
+            </div>
+        </section>
+        <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"
+      integrity="sha512-VJ6+sp2E5rFQk05caiXXzQd1wBABpjEj1r5kMiLmGAAgwPItw1YpqsCCBtq8Yr1x6C49/mTpRdXtq8O2RcZhlQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+        <script>
+
+var sender_id='<%= userid._id %>';
+      var socket = io("/user-namespace",{
+        auth:{
+            token:sender_id
+        }
+      });
+            function openChat() {
+                
+               
+                window.location.href = 'https://example.com/chat'; 
+            }
+        </script>
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 fin LINK. All rights reserved.</p>
+        <a href="#">Privacy</a> | <a href="#">Terms</a>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function showSection(section) {
+            const sections = document.querySelectorAll('.home, .consultation-process, .plans, .profiles');
+            sections.forEach(function(sectionEl) {
+                sectionEl.style.display = 'none';
+            });
+
+            document.getElementById(section).style.display = 'block';
+        }
+
+        // Show default section
+        showSection('home');
+    </script>
+
+</body>
+</html>
